@@ -1,9 +1,10 @@
+
 // Generar string aleatorio para el parámetro 'state'
 export function generateRandomString(length) {
   const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   let text = '';
   for (let i = 0; i < length; i++) {
-    text += possible.charAt(Math.floor(Math.random() * possible.length));
+   text += possible.charAt(Math.floor(Math.random() * possible.length));
   }
   return text;
 }
@@ -50,7 +51,7 @@ export function saveTokens(accessToken, refreshToken, expiresIn) {
 export function getAccessToken() {
   const token = localStorage.getItem('spotify_token');
   const expiration = localStorage.getItem('spotify_token_expiration');
-  
+ 
   if (!token || !expiration) return null;
   
   // Si el token expiró, retornar null
@@ -71,4 +72,40 @@ export function logout() {
   localStorage.removeItem('spotify_token');
   localStorage.removeItem('spotify_refresh_token');
   localStorage.removeItem('spotify_token_expiration');
+}
+
+
+// Refresh token
+export async function refreshAccessToken() {
+  const refreshToken = localStorage.getItem('spotify_refresh_token');
+
+  if (!refreshToken) {
+    console.error("No refresh token disponible. Requiere re-login.");
+    return null;
+  }
+
+  try {
+    const response = await fetch('/api/refresh-token', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ refresh_token: refreshToken }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      console.error("Fallo al refrescar token:", data.error);
+      logout(); 
+     return null;
+    }
+
+    // Guardar el nuevo access token
+    saveTokens(data.access_token, refreshToken, data.expires_in); 
+    
+    return data.access_token;
+
+  } catch (error) {
+    console.error("Error de red al refrescar token:", error);
+    return null;
+  }
 }

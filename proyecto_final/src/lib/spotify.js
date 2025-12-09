@@ -1,30 +1,96 @@
+
+import { getAccessToken, refreshAccessToken, logout } from './auth';
+
+
+async function spotifyRequest(endpoint, method = 'GET', body = null) {
+  let token = getAccessToken();
+  
+  const baseUrl = 'https://api.spotify.com/v1'; 
+  const fetchUrl = `${baseUrl}${endpoint}`; 
+  
+  // Intentar refrescar si getAccessToken devolvió null
+  if (!token) {
+    console.log("Token expirado antes de la llamada. Intentando refrescar...");
+    token = await refreshAccessToken();
+    if (!token) {
+        return null;
+    }
+  }
+
+  let headers = {
+    'Authorization': `Bearer ${token}`,
+    'Content-Type': 'application/json'
+  };
+  const options = { method, headers };
+  if (body) options.body = JSON.stringify(body);
+
+  // 1. Primera Petición
+  let response = await fetch(fetchUrl, options);
+
+  // Manejo de Error 401: Token Expirado o Inválido (durante la petición)
+  if (response.status === 401) {
+    console.log("Error 401 en la petición. Re-intentando con nuevo token...");
+    
+    const newToken = await refreshAccessToken(); 
+
+    if (newToken) {
+      // Reintentar la solicitud con el token recién obtenido
+      options.headers['Authorization'] = `Bearer ${newToken}`;
+      response = await fetch(fetchUrl, options); 
+    } else {
+      
+      return null;
+    }
+  }
+
+  if (!response.ok) {
+    console.error(`Error en Spotify API: ${response.status} - ${response.statusText}`);
+    return null;
+  }
+
+  const contentType = response.headers.get("content-type");
+  if (contentType && contentType.includes("application/json")) {
+    return response.json();
+  }
+  return response;
+}
+
+
+// Obtener el perfil
+export async function getMyProfile() {
+    const endpoint = '/me'; 
+    return await spotifyRequest(endpoint);
+}
+
+// Busqueda con la api
+export async function searchSpotify(query, type, limit = 10) {
+    const endpoint = `/search?q=${encodeURIComponent(query)}&type=${type}&limit=${limit}`; 
+    const data = await spotifyRequest(endpoint);
+    return data ? data[`${type}s`] : null; 
+}
+
 export async function generatePlaylist(preferences) {
   const { artists, genres, decades, popularity } = preferences;
-  const token = getAccessToken();
   let allTracks = [];
 
   // 1. Obtener top tracks de artistas seleccionados
   for (const artist of artists) {
-    const tracks = await fetch(
-      `https://api.spotify.com/v1/artists/${artist.id}/top-tracks?market=US`,
-      {
-        headers: { 'Authorization': `Bearer ${token}` }
-      }
+    const data = await spotifyRequest(
+      `/artists/${artist.id}/top-tracks?market=US` // Endpoint corregido
     );
-    const data = await tracks.json();
-    allTracks.push(...data.tracks);
+    if (data && data.tracks) {
+      allTracks.push(...data.tracks);
+    }
   }
 
   // 2. Buscar por géneros
   for (const genre of genres) {
-    const results = await fetch(
-      `https://api.spotify.com/v1/search?type=track&q=genre:${genre}&limit=20`,
-      {
-        headers: { 'Authorization': `Bearer ${token}` }
-      }
+    const data = await spotifyRequest(
+      `/search?q=genre:"${genre}"&type=track&limit=20` // Endpoint corregido
     );
-    const data = await results.json();
-    allTracks.push(...data.tracks.items);
+    if (data && data.tracks && data.tracks.items) {
+      allTracks.push(...data.tracks.items);
+    }
   }
 
   // 3. Filtrar por década
