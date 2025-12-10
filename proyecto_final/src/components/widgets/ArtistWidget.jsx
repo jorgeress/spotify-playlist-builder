@@ -86,7 +86,7 @@ export default function ArtistWidget({ selectedArtists, onUpdate }) {
               }`}
             >
               <img 
-                src={artist.images?.[0]?.url || 'https://via.placeholder.com/50'} 
+                src={artist.images?.[0]?.url || 'no image'} 
                 alt={artist.name} 
                 className="w-10 h-10 rounded-full mr-3 object-cover" 
               />

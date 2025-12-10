@@ -54,10 +54,7 @@ export default function PopularityWidget({ popularity, onUpdate }) {
                     value={minPopularity}
                     onChange={handleChange}
                     style={trackStyle}
-                    className="w-full h-2 rounded-lg appearance-none cursor-pointer range-lg 
-                               [&::-webkit-slider-thumb]:bg-green-500 [&::-webkit-slider-thumb]:w-4 
-                               [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:appearance-none 
-                               [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:shadow-lg"
+                    className="w-full h-2 rounded-lg appearance-none cursor-pointer range-lg "
                 />
 
                 

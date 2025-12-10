@@ -1,3 +1,5 @@
+// No se ha implementado al final el mood widget ya que no fucionaba correctamente
+
 'use client';
 import React from 'react';
 
