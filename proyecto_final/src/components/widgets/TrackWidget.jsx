@@ -73,7 +73,7 @@ export default function TrackWidget({ selectedTracks, onUpdate }) {
 
     return (
         <div className="bg-gray-800 p-5 rounded-xl shadow-lg h-full flex flex-col">
-            <h3 className="text-xl font-bold mb-3 text-green-400">🎶 Canciones Favoritas (Seeds)</h3>
+            <h3 className="text-xl font-bold mb-3 text-green-400"> Canciones Favoritas (Seeds)</h3>
             <p className="text-sm text-gray-400 mb-4">Busca y selecciona hasta {MAX_TRACKS} canciones para guiar las recomendaciones.</p>
 
             

@@ -2,14 +2,8 @@
 import { getAccessToken, refreshAccessToken, logout } from './auth';
 import { getFavoriteTrackIds } from './favorites'; 
 
-// --- BASE URL: DEBE SER LA URL REAL DE LA API DE SPOTIFY ---
 const BASE_URL = 'https://api.spotify.com/v1';
 
-
-/**
- * Función genérica para hacer peticiones a la API de Spotify, incluyendo
- * manejo de token, refresco automático y errores 401.
- */
 async function spotifyRequest(endpoint, method = 'GET', body = null) {
     let token = getAccessToken();
     
@@ -78,13 +72,6 @@ export async function searchSpotify(query, type, limit = 10) {
 
 // --- LÓGICA DE GENERACIÓN DE PLAYLIST (FILTRADO LOCAL) ---
 
-/**
- * Genera una lista de canciones aplicando filtros locales (décadas, popularidad) 
- * sobre canciones obtenidas por seeds (artistas, géneros, tracks).
- * @param {object} preferences - Objeto con todas las preferencias, incluyendo playlistLimit.
- * @param {number} [limitOverride] - Límite de canciones opcional (usado para "Añadir más").
- * @returns {Promise<Array<Object>>} Lista de tracks únicos y filtrados.
- */
 export async function generatePlaylist(preferences, limitOverride) {
     // Desestructuramos el nuevo valor del límite de canciones
     const { artists, genres, tracks, decades, popularity, playlistLimit } = preferences; 
@@ -175,7 +162,7 @@ export async function createPlaylist(userId, name) {
     const endpoint = `/users/${userId}/playlists`;
     const body = {
         name: name,
-        description: 'Playlist generada por Taste Mixer.',
+        description: 'Playlist generada por Taste Epico Mixer.',
         public: true // Valor por defecto
     };
     return await spotifyRequest(endpoint, 'POST', body);

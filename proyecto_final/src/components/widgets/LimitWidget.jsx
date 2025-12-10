@@ -11,14 +11,14 @@ export default function LimitWidget({ limit, onUpdate }) {
 
     return (
         <div className="bg-gray-800 p-6 rounded-xl shadow-2xl">
-            <h3 className="text-xl font-semibold mb-4 text-white">📏 Límite de Canciones</h3>
+            <h3 className="text-xl font-semibold mb-4 text-white">Límite de Canciones</h3>
             <p className="text-3xl font-bold text-green-400 mb-4">{limit}</p>
             
             <input
                 type="range"
                 min={MIN_LIMIT}
                 max={MAX_LIMIT}
-                step="5" // Permite pasos de 5 en 5 (10, 15, 20, ...)
+                step="5" 
                 value={limit}
                 onChange={(e) => onUpdate(parseInt(e.target.value))}
                 className="w-full h-2 bg-gray-600 rounded-lg appearance-none cursor-pointer range-lg accent-green-500"

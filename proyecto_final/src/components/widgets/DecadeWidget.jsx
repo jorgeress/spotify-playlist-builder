@@ -2,7 +2,6 @@
 'use client';
 import React from 'react';
 
-// Definimos las décadas disponibles
 const availableDecades = [
     '1970',
     '1980',

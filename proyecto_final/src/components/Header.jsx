@@ -43,7 +43,7 @@ export default function Header({ user }) {
         
         
         <h2 className="text-white font-medium text-lg">
-          Hola, **{user.display_name || 'Usuario'}**
+          Hola, {user.display_name || 'Usuario'}
         </h2>
       </div>
 

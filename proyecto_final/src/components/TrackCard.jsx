@@ -2,20 +2,18 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { toggleFavorite, isTrackFavorite } from '@/lib/favorites'; 
-// Eliminados los imports de react-icons, usamos emojis.
 
 export default function TrackCard({ track, onRemove }) {
     const [isFavorite, setIsFavorite] = useState(false);
-    // Estado y Ref para el Preview
     const [isPlaying, setIsPlaying] = useState(false);
     const audioRef = useRef(null);
 
-    // Lógica para inicializar el estado de favorito
+    
     useEffect(() => {
         setIsFavorite(isTrackFavorite(track.id));
     }, [track.id]);
 
-    // Limpieza: Pausar el audio si el componente se desmonta
+    
     useEffect(() => {
         return () => {
             if (audioRef.current) {
@@ -38,7 +36,6 @@ export default function TrackCard({ track, onRemove }) {
             // Inicializar el objeto Audio si aún no existe o si se reinicia
             if (!audioRef.current) {
                 audioRef.current = new Audio(track.preview_url);
-                // Cuando el preview de 30s termina, actualizar el estado
                 audioRef.current.onended = () => setIsPlaying(false);
             } else {
                 audioRef.current.currentTime = 0; // Reiniciar
@@ -96,17 +93,16 @@ export default function TrackCard({ track, onRemove }) {
                 
                 <button
                     onClick={handlePreviewToggle}
-                    // 🛑 ELIMINAMOS: disabled={!track.preview_url}
+                    
                     className={`p-1 text-2xl transition-colors hover:scale-110
                         ${isPlaying 
                             ? 'text-red-400' 
                             : 'text-green-400'
                         } 
-                        // 🛑 ELIMINAMOS: disabled:opacity-30 disabled:cursor-not-allowed
                         `}
                     title={
                         !track.preview_url 
-                        ? "Preview no disponible" // 🆕 Nuevo título si no hay URL
+                        ? "Preview no disponible" 
                         : isPlaying ? "Pausar Preview" : "Reproducir Preview (30s)"
                     }
                     aria-label={

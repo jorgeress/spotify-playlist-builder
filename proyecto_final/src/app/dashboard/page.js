@@ -127,7 +127,7 @@ export default function DashboardPage() {
 
 
     // --- 4. FUNCIONALIDAD OPCIONAL: GUARDAR EN SPOTIFY 
-const handleSavePlaylist = async () => {
+    const handleSavePlaylist = async () => {
     
     if (!playlist.length || !user) { 
         alert('Genera una playlist y asegúrate de que tu perfil esté cargado.');
@@ -137,7 +137,7 @@ const handleSavePlaylist = async () => {
     setLoadingPlaylist(true);
     try {
         // 1. Crear la playlist
-        const playlistName = `Taste Mixer - ${new Date().toLocaleDateString()}`;
+        const playlistName = `Taste Epico Mixer - ${new Date().toLocaleDateString()}`;
        
         const newPlaylist = await createPlaylist(user.id, playlistName); 
 
@@ -173,7 +173,7 @@ const handleSavePlaylist = async () => {
             <div className="max-w-7xl mx-auto">
                 <Header user={user} />
 
-                <h1 className="text-4xl font-extrabold text-green-500 mt-6 mb-10">Spotify Taste Mixer</h1>
+                <h1 className="text-4xl font-extrabold text-green-500 mt-6 mb-10">Spotify Epico Mixer</h1>
                 
                 
                 <h2 className="text-2xl font-semibold text-gray-200 mb-5"> Ajustes de Preferencia</h2>

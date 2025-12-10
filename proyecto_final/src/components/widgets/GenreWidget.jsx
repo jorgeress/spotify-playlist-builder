@@ -54,7 +54,7 @@ export default function GenreWidget({ selectedGenres, onUpdate }) {
           </button>
         ))}
       </div>
-      <p className="text-xs text-gray-400 mt-3">Selecciona al menos un género.</p>
+      <p className="text-xs text-gray-400 mt-3">Selecciona los géneros que más te gusten.</p>
     </div>
   );
 }
