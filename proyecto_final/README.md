@@ -1,36 +1,70 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🎵 Spotify Playlist Manager & Discovery Web
 
-## Getting Started
+[![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)](https://nextjs.org/)
+[![Spotify API](https://img.shields.io/badge/Spotify_API-1DB954?style=for-the-badge&logo=spotify&logoColor=white)](https://developer.spotify.com/documentation/web-api/)
+[![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://reactjs.org/)
 
-First, run the development server:
+Aplicación web interactiva diseñada para la gestión avanzada de búsquedas en Spotify y la creación personalizada de playlists. El proyecto utiliza un sistema modular de widgets para filtrar pistas musicales según criterios técnicos y artísticos.
 
+---
+
+## ✨ Características Principales
+
+La aplicación se organiza en **Widgets especializados** que permiten un control total sobre la selección musical:
+
+* **🔍 Búsqueda Modular:** Filtrado preciso mediante `ArtistWidget`, `GenreWidget` y `TrackWidget`.
+* **⏳ Filtro por Décadas:** El `DecadeWidget` permite explorar música de épocas específicas de forma sencilla.
+* **🔊 Preview System:** Previsualización de audio integrada para escuchar fragmentos de las canciones antes de añadirlas.
+* **📊 Control de Popularidad:** Ajuste del rango de éxito de las canciones mediante `PopularityWidget`.
+* **⚡ Generación Automática:** Creación de playlists directamente en la cuenta del usuario de Spotify.
+
+> **Nota técnica:** Los módulos de `MoodWidget` y algunos aspectos de `PopularityWidget` se encuentran en fase experimental (no implementados totalmente en la lógica de búsqueda actual).
+
+---
+
+## 🛠️ Stack Tecnológico
+
+* **Frontend:** [Next.js](https://nextjs.org/) (React)
+* **Estilos:** CSS3 con PostCSS y diseño responsive.
+* **Integración:** [Spotify Web API](https://developer.spotify.com/documentation/web-api/) para autenticación y gestión de datos.
+* **Calidad de Código:** ESLint para mantener estándares de desarrollo.
+
+---
+
+## 🚀 Instalación y Uso
+
+Sigue estos pasos para ejecutar el proyecto en tu entorno local:
+
+### 1. Requisitos previos
+* Tener instalado **Node.js** (versión 18 o superior).
+* Una cuenta de desarrollador en [Spotify Dashboard](https://developer.spotify.com/dashboard/).
+
+### 2. Clonar y configurar
 ```bash
+# Clonar el repositorio
+git clone [https://github.com/tu-usuario/nombre-del-repo.git](https://github.com/tu-usuario/nombre-del-repo.git)
+
+# Entrar en la carpeta
+cd nombre-del-repo
+
+# Instalar las dependencias
+npm install
+3. Variables de entorno
+Crea un archivo .env.local en la raíz del proyecto y añade tus credenciales:
+
+Fragmento de código
+
+SPOTIFY_CLIENT_ID=tu_client_id_aqui
+SPOTIFY_CLIENT_SECRET=tu_client_secret_aqui
+4. Lanzar la aplicación
+Bash
+
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+La aplicación estará disponible en http://localhost:3000.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+📂 Estructura del Proyecto
+/src: Contiene los componentes (Widgets) y la lógica principal de la aplicación.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+/public: Recursos estáticos (imágenes, audios de previsualización).
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+eslint.config.mjs: Configuración de reglas de estilo y errores de código.
