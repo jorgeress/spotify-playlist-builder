@@ -40,27 +40,27 @@ Sigue estos pasos para ejecutar el proyecto en tu entorno local:
 * Una cuenta de desarrollador en [Spotify Dashboard](https://developer.spotify.com/dashboard/).
 
 ### 2. Clonar y configurar
-```bash
+
 # Clonar el repositorio
 
 # Entrar en la carpeta
 
 # Instalar las dependencias
-npm install
-3. Variables de entorno
-Crea un archivo .env.local en la raíz del proyecto y añade tus credenciales:
 
-Fragmento de código
+npm install
+
+### 3. Variables de entorno
+Crea un archivo .env.local en la raíz del proyecto y añade tus credenciales:
 
 SPOTIFY_CLIENT_ID=tu_client_id_aqui
 SPOTIFY_CLIENT_SECRET=tu_client_secret_aqui
-4. Lanzar la aplicación
-Bash
+### 4. Lanzar la aplicación
 
 npm run dev
-La aplicación estará disponible en http://localhost:3000.
 
-📂 Estructura del Proyecto
+### La aplicación estará disponible en http://localhost:3000.
+
+### 📂 Estructura del Proyecto
 /src: Contiene los componentes (Widgets) y la lógica principal de la aplicación.
 
 /public: Recursos estáticos (imágenes, audios de previsualización).
