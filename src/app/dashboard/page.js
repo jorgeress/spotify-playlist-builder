@@ -137,7 +137,7 @@ export default function DashboardPage() {
     setLoadingPlaylist(true);
     try {
         // 1. Crear la playlist
-        const playlistName = `Taste Epico Mixer - ${new Date().toLocaleDateString()}`;
+        const playlistName = `Spotify Epico Mixer - ${new Date().toLocaleDateString()}`;
        
         const newPlaylist = await createPlaylist(user.id, playlistName); 
 

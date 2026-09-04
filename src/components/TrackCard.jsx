@@ -4,14 +4,10 @@ import React, { useState, useRef, useEffect } from 'react';
 import { toggleFavorite, isTrackFavorite } from '@/lib/favorites'; 
 
 export default function TrackCard({ track, onRemove }) {
-    const [isFavorite, setIsFavorite] = useState(false);
+    // Los favoritos estan en localStorage, asi que se leen al montar la tarjeta
+    const [isFavorite, setIsFavorite] = useState(() => isTrackFavorite(track.id));
     const [isPlaying, setIsPlaying] = useState(false);
     const audioRef = useRef(null);
-
-    
-    useEffect(() => {
-        setIsFavorite(isTrackFavorite(track.id));
-    }, [track.id]);
 
     
     useEffect(() => {

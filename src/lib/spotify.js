@@ -162,7 +162,7 @@ export async function createPlaylist(userId, name) {
     const endpoint = `/users/${userId}/playlists`;
     const body = {
         name: name,
-        description: 'Playlist generada por Taste Epico Mixer.',
+        description: 'Playlist generada por Spotify Epico Mixer.',
         public: true // Valor por defecto
     };
     return await spotifyRequest(endpoint, 'POST', body);

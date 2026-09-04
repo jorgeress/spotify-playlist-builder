@@ -52,7 +52,7 @@ export default function PlaylistDisplay({ tracks, onRemoveTrack, onRefreshPlayli
 
             {tracks.length === 0 ? (
                 <p className="text-center text-gray-400 py-10">
-                    Usa los widgets para seleccionar tus preferencias y haz clic en "Generar Playlist".
+                    Usa los widgets para seleccionar tus preferencias y haz clic en &quot;Generar Playlist&quot;.
                 </p>
             ) : (
                 <div className="space-y-3 max-h-[70vh] overflow-y-auto pr-2">

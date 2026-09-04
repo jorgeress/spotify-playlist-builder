@@ -97,7 +97,7 @@ export default function ArtistWidget({ selectedArtists, onUpdate }) {
         })}
 
         {!loading && searchTerm && searchResults.length === 0 && (
-            <p className="text-gray-400 text-center">No se encontraron artistas para "{searchTerm}".</p>
+            <p className="text-gray-400 text-center">No se encontraron artistas para &quot;{searchTerm}&quot;.</p>
         )}
       </div>
       

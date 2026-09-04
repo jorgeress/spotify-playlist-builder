@@ -1,10 +1,10 @@
 'use client';
 
-import { useEffect, useState, useRef } from 'react';
+import { Suspense, useEffect, useState, useRef } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { saveTokens } from '@/lib/auth';
 
-export default function CallbackPage() {
+function CallbackHandler() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [error, setError] = useState(null);
@@ -89,6 +89,10 @@ export default function CallbackPage() {
     );
   }
 
+  return <LoadingScreen />;
+}
+
+function LoadingScreen() {
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-900">
       <div className="text-center">
@@ -96,5 +100,15 @@ export default function CallbackPage() {
         <p className="text-white text-xl">Autenticando...</p>
       </div>
     </div>
+  );
+}
+
+// useSearchParams obliga a renderizar en cliente, asi que envolvemos la pagina
+// en un Suspense para que Next pueda prerenderizar la ruta.
+export default function CallbackPage() {
+  return (
+    <Suspense fallback={<LoadingScreen />}>
+      <CallbackHandler />
+    </Suspense>
   );
 }
