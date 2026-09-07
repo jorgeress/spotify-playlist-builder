@@ -12,7 +12,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Spotify Epico Mixer",
+  title: "Pinchadiscos",
   description: "Generador de playlists de Spotify a partir de artistas, generos, decadas y popularidad",
 };
 

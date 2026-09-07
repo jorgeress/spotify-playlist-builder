@@ -38,7 +38,7 @@ export default function Home() {
         </div>
 
         <h1 className="text-4xl md:text-5xl font-extrabold mb-3 tracking-tight bg-gradient-to-r from-green-400 via-green-300 to-emerald-400 bg-clip-text text-transparent">
-          Spotify Epico Mixer
+          Pinchadiscos
         </h1>
         
         <p className="text-green-400/80 text-sm font-semibold mb-6 tracking-wide uppercase">

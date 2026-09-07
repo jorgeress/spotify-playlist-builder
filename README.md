@@ -1,4 +1,6 @@
-# Spotify Epico Mixer
+# Pinchadiscos
+
+*Le dices el ambiente, el te pincha la sesion.*
 
 Aplicacion web en Next.js que construye playlists de Spotify a partir de unos cuantos filtros: artistas, generos, decadas, popularidad y numero de canciones. La playlist se puede revisar en el navegador y guardarla despues en la cuenta real del usuario.
 
@@ -12,6 +14,61 @@ Proyecto final de la asignatura de Programacion Web (UTAD).
 * Generacion de la playlist combinando las semillas elegidas, quitando duplicados y aplicando los filtros en local.
 * Marcar canciones como favoritas (se guardan en el navegador) para que entren en las siguientes generaciones.
 * Anadir mas canciones, quitar las que no encajen y guardar el resultado como playlist nueva en Spotify.
+
+## Como funciona
+
+Spotify retiro el endpoint de recomendaciones, asi que Pinchadiscos no le pide la playlist hecha: lanza varias busquedas en paralelo a partir de las semillas que eliges, junta todo en un pool y aplica los filtros en local.
+
+```mermaid
+flowchart TD
+    subgraph seeds["Semillas que elige el usuario"]
+        A["Artistas"]
+        G["Generos"]
+        C["Canciones sueltas"]
+        F["Favoritos<br/>(localStorage)"]
+    end
+
+    A --> R1["GET /artists/:id/top-tracks"]
+    G --> R2["GET /search?q=genre:..."]
+    C --> R3["GET /tracks?ids=..."]
+    F --> R3
+
+    R1 --> POOL["Pool de canciones"]
+    R2 --> POOL
+    R3 --> POOL
+
+    POOL --> DEDUP["Quitar duplicados por id"]
+    DEDUP --> P1["Filtro de popularidad<br/>min - max"]
+    P1 --> P2["Filtro de decada<br/>segun release_date"]
+    P2 --> CUT["Cortar al limite<br/>30 por defecto"]
+    CUT --> UI["Playlist en pantalla<br/>editable"]
+    UI --> SAVE["POST /users/:id/playlists<br/>POST /playlists/:id/tracks"]
+```
+
+El client secret nunca llega al navegador: el intercambio del codigo por tokens y el refresco pasan por rutas de servidor.
+
+```mermaid
+sequenceDiagram
+    participant U as Navegador
+    participant S as Servidor Next.js
+    participant SP as Spotify
+
+    U->>SP: /authorize (client_id, scopes, state)
+    SP-->>U: redirect a /auth/callback?code=...
+    U->>S: POST /api/spotify-token (code)
+    Note over S: aqui vive el client secret
+    S->>SP: POST /api/token (Basic auth)
+    SP-->>S: access_token + refresh_token
+    S-->>U: solo los tokens
+    Note over U: guardados en localStorage
+
+    U->>SP: peticion a la API
+    SP-->>U: 401, token caducado
+    U->>S: POST /api/refresh-token
+    S->>SP: grant_type=refresh_token
+    SP-->>S: nuevo access_token
+    S-->>U: se reintenta la peticion original
+```
 
 ## Stack
 
